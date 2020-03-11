@@ -182,6 +182,28 @@
     </li>
   </ul>
 <script>
+
+const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+const times = timeNodes.map(node => node.dataset.time);
+const seconds = times.map(time => {
+  const [mins, secs] = time.split(':').map(parseFloat);
+  return (mins * 60) + secs;
+})
+const totalSeconds = seconds.reduce((total, vidSeconds) => total + vidSeconds);
+
+console.log(totalSeconds);
+
+const vidHours = Math.floor(totalSeconds / 3600)
+const vidMinutes = Math.floor((totalSeconds % 3600) / 60)
+const vidSeconds = Math.floor(((totalSeconds % 3600) % 60) / 60)
+
+const stringTime = `${vidHours}:${vidMinutes}:${vidSeconds}`
+console.log(stringTime);
+
+// using Date object to format
+const date = new Date(2020,01,01,vidHours,vidMinutes,vidSeconds)
+console.log(date.toTimeString().slice(0,8));
+
 </script>
 </body>
 </html>
